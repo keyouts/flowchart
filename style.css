@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: 'Arial Black', sans-serif;
+  background: #fff;
+  color: #000;
+}
+
+.toolbar {
+  display: flex;
+  padding: 10px;
+  border-bottom: 2px solid #000;
+  background: #fff;
+  box-shadow: 0 4px 0 #000;
+}
+
+button {
+  margin-right: 10px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 2px solid #000;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #000;
+  transition: background 0.2s, color 0.2s;
+}
+
+button.active {
+  background: #000;
+  color: #fff;
+}
+
+#canvas {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 50px);
+  overflow: hidden;
+  background: #fff;
+  cursor: crosshair;
+}
+
+.bubble {
+  position: absolute;
+  padding: 12px 18px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  background: #fff;
+  cursor: move;
+  user-select: none;
+  box-shadow: 6px 6px 0 #000;
+  font-weight: bold;
+}
+
+.bubble[contenteditable="true"] {
+  outline: none;
+}
+
+.connection {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
