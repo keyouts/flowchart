@@ -1,4 +1,12 @@
 const canvas = document.getElementById('canvas');
+const connectionCanvas = document.createElement('canvas');
+connectionCanvas.id = 'connectionCanvas';
+connectionCanvas.style.position = 'absolute';
+connectionCanvas.style.top = '0';
+connectionCanvas.style.left = '0';
+connectionCanvas.style.zIndex = '0';
+canvas.appendChild(connectionCanvas);
+
 const buttons = document.querySelectorAll('.toolbar button');
 
 let mode = 'add';
@@ -31,6 +39,8 @@ function createBubble(text, x, y, id = Date.now()) {
   div.style.left = x + 'px';
   div.style.top = y + 'px';
   div.dataset.id = id;
+  div.style.position = 'absolute';
+  div.style.zIndex = '1';
   canvas.appendChild(div);
 
   makeDraggable(div);
@@ -102,18 +112,17 @@ function makeDraggable(el) {
 }
 
 function drawConnections() {
-  document.querySelectorAll('.connection').forEach(line => line.remove());
+  connectionCanvas.width = canvas.offsetWidth;
+  connectionCanvas.height = canvas.offsetHeight;
+  const ctx = connectionCanvas.getContext('2d');
+  ctx.clearRect(0, 0, connectionCanvas.width, connectionCanvas.height);
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 2;
+
   connections.forEach(conn => {
     const from = bubbles.find(b => b.dataset.id === conn.from);
     const to = bubbles.find(b => b.dataset.id === conn.to);
     if (from && to) {
-      const line = document.createElement('canvas');
-      line.className = 'connection';
-      line.width = canvas.offsetWidth;
-      line.height = canvas.offsetHeight;
-      const ctx = line.getContext('2d');
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 2;
       const x1 = from.offsetLeft + from.offsetWidth / 2;
       const y1 = from.offsetTop + from.offsetHeight / 2;
       const x2 = to.offsetLeft + to.offsetWidth / 2;
@@ -122,7 +131,6 @@ function drawConnections() {
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
       ctx.stroke();
-      canvas.appendChild(line);
     }
   });
 }
@@ -153,3 +161,4 @@ function loadFromStorage() {
 }
 
 loadFromStorage();
+
