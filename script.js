@@ -1,10 +1,9 @@
 const canvas = document.getElementById('canvas');
+
+// Create and style the connection canvas
 const connectionCanvas = document.createElement('canvas');
 connectionCanvas.id = 'connectionCanvas';
-connectionCanvas.style.position = 'absolute';
-connectionCanvas.style.top = '0';
-connectionCanvas.style.left = '0';
-connectionCanvas.style.zIndex = '0';
+connectionCanvas.className = 'connection';
 canvas.appendChild(connectionCanvas);
 
 const buttons = document.querySelectorAll('.toolbar button');
@@ -39,8 +38,6 @@ function createBubble(text, x, y, id = Date.now()) {
   div.style.left = x + 'px';
   div.style.top = y + 'px';
   div.dataset.id = id;
-  div.style.position = 'absolute';
-  div.style.zIndex = '1';
   canvas.appendChild(div);
 
   makeDraggable(div);
